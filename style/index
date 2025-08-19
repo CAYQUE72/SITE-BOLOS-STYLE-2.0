@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Bolos no Pote Delícia</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <!-- TELA INICIAL -->
+  <section id="inicio" class="secao ativa">
+    <h1>🍰 Bem-vindo ao Bolos no Pote 01.SABORESCRIATIVOBH</h1>
+    <p>O sabor que conquista no primeiro pote!</p>
+    <a href="#" class="btn js-nav" data-target="menu">👉 Clique aqui para começar</a>
+  </section>
+
+  <!-- MENU PRINCIPAL -->
+  <section id="menu" class="secao">
+    <h1>🍰 Bolos no Pote Delícia</h1>
+    <p>Escolha o que deseja fazer:</p>
+
+    <nav class="menu">
+      <a href="#" class="btn js-nav" data-target="pedido">📦 Fazer Pedido</a>
+      <a href="#" class="btn js-nav" data-target="feedback">⭐ Deixar Feedback</a>
+      <a href="#" class="btn js-nav" data-target="fidelidade">🎟️ Cartela Fidelidade</a>
+      <a href="#" class="btn btn-sec js-nav" data-target="inicio">⬅️ Voltar</a>
+    </nav>
+  </section>
+
+  <!-- ETAPA 1: PEDIDO -->
+  <section id="pedido" class="secao">
+    <h2>📦 Fazer Pedido</h2>
+    <form id="formPedido" novalidate>
+      <label for="nome">Nome</label>
+      <input id="nome" name="nome" type="text" placeholder="Seu nome completo" required minlength="2" autocomplete="name">
+
+      <label for="email">E-mail</label>
+      <input id="email" name="email" type="email" placeholder="seu@exemplo.com" required autocomplete="email">
+
+      <label for="tel">Telefone</label>
+      <input id="tel" name="tel" type="tel" placeholder="(31) 99999-9999" required pattern="^\\(\\d{2}\\) \\d{5}-\\d{4}$" title="Formato: (31) 99999-9999">
+
+      <label for="sabor">Escolha o sabor</label>
+      <select id="sabor" name="sabor" required>
+        <option value="">Selecione um sabor</option>
+        <option value="Chocolate" data-preco="10">🍫 Chocolate - R$10,00</option>
+        <option value="Doce de Leite" data-preco="10">🥛 Doce de Leite - R$10,00</option>
+        <option value="Doce de Leite com Coco" data-preco="12">🥥 Doce de Leite com Coco - R$12,00</option>
+        <option value="Prestígio" data-preco="12">🍫🥥 Prestígio - R$12,00</option>
+        <option value="Ninho com Coco" data-preco="15">🥛🥥 Ninho com Coco - R$15,00</option>
+        <option value="Ninho com Nutella" data-preco="15">🥛🍫 Ninho com Nutella - R$15,00</option>
+        <option value="Ninho com Nutella (Nutella extra)" data-preco="18">🥛🍫✨ Ninho com Nutella (Nutella extra) - R$18,00</option>
+      </select>
+
+      <label for="quantidade">Quantidade</label>
+      <input id="quantidade" name="quantidade" type="number" min="1" max="50" placeholder="Ex: 3" required>
+
+      <label for="mensagem">Observações</label>
+      <textarea id="mensagem" name="mensagem" rows="4" placeholder="Ex: Entregar à tarde, sem granulado..."></textarea>
+
+      <button type="submit" class="btn">Enviar pelo WhatsApp 🍫</button>
+      <div class="sucesso" aria-live="polite">✅ Obrigado! Seu pedido foi enviado com sucesso.</div>
+    </form>
+
+    <a href="#" class="btn btn-sec js-nav" data-target="menu">⬅️ Voltar</a>
+  </section>
+
+  <!-- ETAPA 2: FEEDBACK -->
+  <section id="feedback" class="secao">
+    <h2>⭐ Avalie sua experiência</h2>
+    <form id="formFeedback" novalidate>
+      <label for="nota">Sua nota:</label>
+      <select id="nota" name="nota" required>
+        <option value="">Escolha</option>
+        <option value="5">⭐⭐⭐⭐⭐ Excelente</option>
+        <option value="4">⭐⭐⭐⭐ Muito bom</option>
+        <option value="3">⭐⭐⭐ Bom</option>
+        <option value="2">⭐⭐ Regular</option>
+        <option value="1">⭐ Ruim</option>
+      </select>
+
+      <label for="comentario">Comentário</label>
+      <textarea id="comentario" name="comentario" rows="4" placeholder="Escreva aqui sua opinião..." required></textarea>
+
+      <button type="submit" class="btn">Enviar Feedback</button>
+      <div class="sucesso" aria-live="polite">✅ Obrigado pelo seu feedback!</div>
+    </form>
+
+    <a href="#" class="btn btn-sec js-nav" data-target="menu">⬅️ Voltar</a>
+  </section>
+
+  <!-- ETAPA 3: FIDELIDADE -->
+  <section id="fidelidade" class="secao">
+    <h2>🎟️ Cartela de Fidelidade</h2>
+    <p>A cada pedido, você ganha 1 carimbo. Junte 10 e ganhe 1 bolo grátis!</p>
+    <div id="cartela" class="cartela"></div>
+    <a href="#" class="btn btn-sec js-nav" data-target="menu">⬅️ Voltar</a>
+  </section>
+
+  <script>
+    // ===== Navegação entre seções =====
+    function mostrarSecao(id) {
+      document.querySelectorAll('.secao').forEach(sec => sec.classList.remove('ativa'));
+      const alvo = document.getElementById(id);
+      if (alvo) alvo.classList.add('ativa');
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    document.addEventListener('click', (e) => {
+      const btn = e.target.closest('.js-nav');
+      if (!btn) return;
+      e.preventDefault();
+      mostrarSecao(btn.dataset.target);
+    });
+
+    // ===== Máscara telefone =====
+    const tel = document.getElementById('tel');
+    if (tel) {
+      tel.addEventListener('input', (e) => {
+        let v = e.target.value.replace(/\D/g, '');
+        if (v.length > 0) v = '(' + v;
+        if (v.length > 3) v = v.slice(0, 3) + ') ' + v.slice(3);
+        if (v.length > 10) v = v.slice(0, 10) + '-' + v.slice(10, 15);
+        e.target.value = v;
+      });
+    }
+
+    // ===== Pedido → WhatsApp =====
+    const numeroWhatsApp = "5531991136779"; // seu número
+    const formPedido = document.getElementById('formPedido');
+
+    if (formPedido) {
+      formPedido.addEventListener('submit', (e) => {
+        e.preventDefault();
+        if (!formPedido.checkValidity()) { formPedido.reportValidity(); return; }
+
+        const nome = document.getElementById('nome').value.trim();
+        const email = document.getElementById('email').value.trim();
+        const telefone = document.getElementById('tel').value.trim();
+        const saborSel = document.getElementById('sabor');
+        const sabor = saborSel.value;
+        const preco = parseFloat(saborSel.selectedOptions[0].dataset.preco);
+        const qtd = parseInt(document.getElementById('quantidade').value, 10);
+        const obs = (document.getElementById('mensagem').value || "Nenhuma observação").trim();
+        const total = (preco * qtd) || 0;
+
+        const texto = [
+          "Olá! Quero fazer um pedido de bolo no pote.",
+          `👤 Nome: ${nome}`,
+          `📧 E-mail: ${email}`,
+          `📱 Telefone: ${telefone}`,
+          `🍰 Sabor escolhido: ${sabor}`,
+          `📦 Quantidade: ${qtd}`,
+          `💵 Valor total: R$ ${total.toFixed(2).replace('.', ',')}`,
+          `📝 Observações: ${obs}`
+        ].join('\n');
+
+        const url = `https://wa.me/${numeroWhatsApp}?text=${encodeURIComponent(texto)}`;
+        const novaJanela = window.open(url, '_blank');
+
+        if (novaJanela) {
+          formPedido.querySelector('.sucesso').style.display = 'block';
+          formPedido.reset();
+        } else {
+          alert("⚠️ Não foi possível abrir o WhatsApp. Verifique seu navegador (bloqueio de pop-up?).");
+        }
+      });
+    }
+
+    // ===== Cartela fidelidade =====
+    const cartela = document.getElementById('cartela');
+    let pontos = 0;
+
+    function desenharCartela() {
+      if (!cartela) return;
+      cartela.innerHTML = "";
+      for (let i = 1; i <= 10; i++) {
+        const el = document.createElement('div');
+        el.className = 'casa' + (i <= pontos ? ' preenchida' : '');
+        el.textContent = i;
+        cartela.appendChild(el);
+      }
+    }
+    desenharCartela();
+
+    // Feedback soma 1 ponto (exemplo)
+    const formFeedback = document.getElementById('formFeedback');
+    if (formFeedback) {
+      formFeedback.addEventListener('submit', (e) => {
+        e.preventDefault();
+        if (!formFeedback.checkValidity()) { formFeedback.reportValidity(); return; }
+        formFeedback.querySelector('.sucesso').style.display = 'block';
+        pontos = Math.min(10, pontos + 1);
+        if (pontos === 10) {
+          setTimeout(() => alert("🎉 Parabéns! Você completou a cartela e ganhou 1 bolo grátis!"), 50);
+          pontos = 0;
+        }
+        desenharCartela();
+        formFeedback.reset();
+      });
+    }
+  </script>
+
+</body>
+</html>
